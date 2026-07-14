@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taş Kağıt Makas</title>
+  <style>
+    :root {
+      color-scheme: light;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #fef3c7, #bfdbfe);
+      color: #111827;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 24px;
+      padding: 32px;
+      width: min(100%, 480px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+    }
+
+    p {
+      margin: 0 0 20px;
+      color: #4b5563;
+      line-height: 1.5;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    button:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .countdown {
+      margin: 20px 0 12px;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #1d4ed8;
+      min-height: 44px;
+    }
+
+    .result-box {
+      margin-top: 12px;
+      border-radius: 20px;
+      padding: 20px;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #f3f4f6;
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+
+    .result-box.show {
+      transform: scale(1.02);
+    }
+
+    .emoji {
+      font-size: 4.5rem;
+      margin-bottom: 8px;
+    }
+
+    .label {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #111827;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Taş Kağıt Makas</h1>
+    <p>Butona bas, 3'ten geriye say ve rastgele bir seçim gör.</p>
+    <button id="playBtn">Başlat</button>
+    <div id="countdown" class="countdown">Hazır</div>
+    <div id="resultBox" class="result-box">
+      <div id="resultEmoji" class="emoji">❓</div>
+      <div id="resultLabel" class="label">Bekleniyor...</div>
+    </div>
+  </div>
+
+  <script>
+    const choices = [
+      { name: "Taş", emoji: "🪨", color: "#dcfce7" },
+      { name: "Kağıt", emoji: "📄", color: "#dbeafe" },
+      { name: "Makas", emoji: "✂️", color: "#fce7f3" }
+    ];
+
+    const playBtn = document.getElementById("playBtn");
+    const countdownEl = document.getElementById("countdown");
+    const resultBox = document.getElementById("resultBox");
+    const resultEmojiEl = document.getElementById("resultEmoji");
+    const resultLabelEl = document.getElementById("resultLabel");
+
+    playBtn.addEventListener("click", () => {
+      playBtn.disabled = true;
+      countdownEl.textContent = "3";
+      resultEmojiEl.textContent = "❓";
+      resultLabelEl.textContent = "Bekleniyor...";
+      resultBox.style.background = "#f3f4f6";
+      resultBox.classList.remove("show");
+
+      let count = 3;
+      const interval = setInterval(() => {
+        count -= 1;
+
+        if (count > 0) {
+          countdownEl.textContent = count;
+        } else {
+          clearInterval(interval);
+          const pick = choices[Math.floor(Math.random() * choices.length)];
+          resultEmojiEl.textContent = pick.emoji;
+          resultLabelEl.textContent = pick.name;
+          resultBox.style.background = pick.color;
+          resultBox.classList.add("show");
+          countdownEl.textContent = "Bitti!";
+          playBtn.disabled = false;
+        }
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
