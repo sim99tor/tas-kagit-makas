@@ -35,15 +35,3 @@ Bu proje iki sürüme sahip:
    ```
 3. Ekranda `b` tuşuna basarak oyunu başlatın.
 
-## GitHub’a yükleme
-
-Bu klasörde Git yüklüyse şu komutlarla repo oluşturup GitHub’a gönderebilirsiniz:
-
-```bash
-cd C:\Users\Win10
-git init
-git add .
-git commit -m "Add rock-paper-scissors game"
-```
-
-Ardından GitHub’da boş bir repository oluşturup `git remote add origin <URL>` ve `git push -u origin main` komutlarını kullanabilirsiniz.
